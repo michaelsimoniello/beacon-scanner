@@ -19,38 +19,90 @@ final class BluetoothScanner: NSObject, ObservableObject {
     @Published var devices: [DiscoveredDevice] = []
     @Published var isScanning = false
     @Published var statusMessage = "Not started"
+    @Published var sampleCount = 0
+    @Published var lastSessionURL: URL?
 
     private var centralManager: CBCentralManager!
+    // CoreBluetooth delegate callbacks run on this queue, never on main/MainActor.
+    private let bleQueue = DispatchQueue(label: "com.beaconscanner.blequeue", qos: .userInitiated)
+    private let deviceStore = DeviceStore()
+    private let csvLogger = CSVSessionLogger()
+    private var uiRefreshTimer: Timer?
 
     override init() {
         super.init()
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        centralManager = CBCentralManager(delegate: self, queue: bleQueue)
     }
 
-    func startScanning() {
+    func startScanning(label: String) {
         guard centralManager.state == .poweredOn else {
             statusMessage = "Bluetooth not ready (\(centralManager.state.description))"
             return
         }
+
+        deviceStore.reset()
         devices.removeAll()
+        sampleCount = 0
+        lastSessionURL = nil
+
+        let url = csvLogger.startSession(label: label)
+
         centralManager.scanForPeripherals(withServices: nil, options: [
             CBCentralManagerScanOptionAllowDuplicatesKey: true
         ])
         isScanning = true
-        statusMessage = "Scanning..."
+        statusMessage = "Scanning... writing to \(url.lastPathComponent)"
+        startUIRefreshTimer()
     }
 
     func stopScanning() {
         centralManager.stopScan()
+        csvLogger.endSession()
+        stopUIRefreshTimer()
+        refreshUI()
         isScanning = false
+        lastSessionURL = csvLogger.currentSessionURL
         statusMessage = "Stopped"
+    }
+
+    private func startUIRefreshTimer() {
+        uiRefreshTimer?.invalidate()
+        // Use selector-based timer to avoid capturing self in a @Sendable closure.
+        let timer = Timer(timeInterval: 0.25,
+                          target: self,
+                          selector: #selector(handleUIRefreshTimer(_:)),
+                          userInfo: nil,
+                          repeats: true)
+        RunLoop.main.add(timer, forMode: .common)
+        uiRefreshTimer = timer
+    }
+
+    private func stopUIRefreshTimer() {
+        uiRefreshTimer?.invalidate()
+        uiRefreshTimer = nil
+    }
+
+    @objc private func handleUIRefreshTimer(_ timer: Timer) {
+        // Ensure MainActor execution for UI state updates.
+        Task { @MainActor in
+            self.refreshUI()
+        }
+    }
+
+    private func refreshUI() {
+        let snapshot = deviceStore.snapshot()
+        devices = snapshot.devices.map {
+            DiscoveredDevice(id: $0.id, name: $0.name, rssi: $0.rssi, lastSeen: $0.lastSeen)
+        }
+        sampleCount = snapshot.sampleCount
     }
 }
 
 extension BluetoothScanner: CBCentralManagerDelegate {
     nonisolated func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        let state = central.state
         Task { @MainActor in
-            switch central.state {
+            switch state {
             case .poweredOn:
                 statusMessage = "Bluetooth ready"
             case .poweredOff:
@@ -61,11 +113,13 @@ extension BluetoothScanner: CBCentralManagerDelegate {
             case .unsupported:
                 statusMessage = "Bluetooth not supported on this device"
             default:
-                statusMessage = "Bluetooth state: \(central.state.description)"
+                statusMessage = "Bluetooth state: \(state.description)"
             }
         }
     }
 
+    // Fires at very high rates with allowDuplicates: true. Must stay off the main actor:
+    // only cheap, thread-safe work here, decoupled from UI via DeviceStore + a 4Hz timer.
     nonisolated func centralManager(
         _ central: CBCentralManager,
         didDiscover peripheral: CBPeripheral,
@@ -77,17 +131,15 @@ extension BluetoothScanner: CBCentralManagerDelegate {
             ?? peripheral.name
             ?? "Unknown Device"
         let rssiValue = RSSI.intValue
+        let timestampMs = Int64(Date().timeIntervalSince1970 * 1000)
 
-        Task { @MainActor in
-            if let index = devices.firstIndex(where: { $0.id == id }) {
-                devices[index].rssi = rssiValue
-                devices[index].name = name
-                devices[index].lastSeen = Date()
-            } else {
-                devices.append(DiscoveredDevice(id: id, name: name, rssi: rssiValue, lastSeen: Date()))
-            }
-            devices.sort { $0.rssi > $1.rssi }
-        }
+        deviceStore.record(id: id, name: name, rssi: rssiValue)
+        csvLogger.log(
+            timestampMs: timestampMs,
+            peripheralID: id.uuidString,
+            name: name,
+            rssi: rssiValue
+        )
     }
 }
 
