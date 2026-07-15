@@ -9,12 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var scanner = BluetoothScanner()
+    @StateObject private var watchInbox = WatchSessionInbox()
     @State private var label = ""
     @State private var beaconsOnly = false
     @State private var isSharePresented = false
 
     private var filteredDevices: [DiscoveredDevice] {
         beaconsOnly ? scanner.devices.filter { $0.name.hasPrefix("BCPro_") } : scanner.devices
+    }
+
+    /// Most recent session CSV: the last one recorded here or received from the watch.
+    private var exportURL: URL? {
+        let candidates = [scanner.lastSessionURL, watchInbox.lastReceivedURL].compactMap { $0 }
+        return candidates.max { modificationDate($0) < modificationDate($1) }
+    }
+
+    private func modificationDate(_ url: URL) -> Date {
+        (try? url.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate)
+            ?? .distantPast
     }
 
     var body: some View {
@@ -78,7 +90,7 @@ struct ContentView: View {
                     } label: {
                         Label("Export Last Session", systemImage: "square.and.arrow.up")
                     }
-                    .disabled(scanner.isScanning || scanner.lastSessionURL == nil)
+                    .disabled(scanner.isScanning || exportURL == nil)
 
                     Text(scanner.statusMessage)
                         .font(.footnote)
@@ -88,7 +100,7 @@ struct ContentView: View {
                 .padding(.horizontal)
             }
             .sheet(isPresented: $isSharePresented) {
-                if let url = scanner.lastSessionURL {
+                if let url = exportURL {
                     ActivityView(activityItems: [url])
                 }
             }

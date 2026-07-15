@@ -6,9 +6,48 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3FF08A0E2FE4D100007906E5 /* BeaconScannerWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 3FF08A012FE4D100007906E5 /* BeaconScannerWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3FF08A0B2FE4D100007906E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FF089BB2FE4C08C007906E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FF08A042FE4D100007906E5;
+			remoteInfo = BeaconScannerWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3FF08A0D2FE4D100007906E5 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				3FF08A0E2FE4D100007906E5 /* BeaconScannerWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3FF089C32FE4C08C007906E5 /* BeaconScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FF08A012FE4D100007906E5 /* BeaconScannerWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconScannerWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3FF08A0F2FE4D100007906E5 /* Exceptions for "BeaconScannerWatch" folder in "BeaconScannerWatch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3FF08A042FE4D100007906E5 /* BeaconScannerWatch */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3FF089C52FE4C08C007906E5 /* BeaconScanner */ = {
@@ -16,10 +55,30 @@
 			path = BeaconScanner;
 			sourceTree = "<group>";
 		};
+		3FF08A022FE4D100007906E5 /* BeaconScannerWatch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3FF08A0F2FE4D100007906E5 /* Exceptions for "BeaconScannerWatch" folder in "BeaconScannerWatch" target */,
+			);
+			path = BeaconScannerWatch;
+			sourceTree = "<group>";
+		};
+		3FF08A032FE4D100007906E5 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3FF089C02FE4C08C007906E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FF08A062FE4D100007906E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				3FF089C52FE4C08C007906E5 /* BeaconScanner */,
+				3FF08A022FE4D100007906E5 /* BeaconScannerWatch */,
+				3FF08A032FE4D100007906E5 /* Shared */,
 				3FF089C42FE4C08C007906E5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				3FF089C32FE4C08C007906E5 /* BeaconScanner.app */,
+				3FF08A012FE4D100007906E5 /* BeaconScannerWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,19 +117,45 @@
 				3FF089BF2FE4C08C007906E5 /* Sources */,
 				3FF089C02FE4C08C007906E5 /* Frameworks */,
 				3FF089C12FE4C08C007906E5 /* Resources */,
+				3FF08A0D2FE4D100007906E5 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3FF08A0C2FE4D100007906E5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3FF089C52FE4C08C007906E5 /* BeaconScanner */,
+				3FF08A032FE4D100007906E5 /* Shared */,
 			);
 			name = BeaconScanner;
 			packageProductDependencies = (
 			);
 			productName = BeaconScanner;
 			productReference = 3FF089C32FE4C08C007906E5 /* BeaconScanner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3FF08A042FE4D100007906E5 /* BeaconScannerWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FF08A082FE4D100007906E5 /* Build configuration list for PBXNativeTarget "BeaconScannerWatch" */;
+			buildPhases = (
+				3FF08A052FE4D100007906E5 /* Sources */,
+				3FF08A062FE4D100007906E5 /* Frameworks */,
+				3FF08A072FE4D100007906E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				3FF08A022FE4D100007906E5 /* BeaconScannerWatch */,
+				3FF08A032FE4D100007906E5 /* Shared */,
+			);
+			name = BeaconScannerWatch;
+			packageProductDependencies = (
+			);
+			productName = BeaconScannerWatch;
+			productReference = 3FF08A012FE4D100007906E5 /* BeaconScannerWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -81,6 +169,9 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					3FF089C22FE4C08C007906E5 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					3FF08A042FE4D100007906E5 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
@@ -100,12 +191,20 @@
 			projectRoot = "";
 			targets = (
 				3FF089C22FE4C08C007906E5 /* BeaconScanner */,
+				3FF08A042FE4D100007906E5 /* BeaconScannerWatch */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3FF089C12FE4C08C007906E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FF08A072FE4D100007906E5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +221,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FF08A052FE4D100007906E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3FF08A0C2FE4D100007906E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FF08A042FE4D100007906E5 /* BeaconScannerWatch */;
+			targetProxy = 3FF08A0B2FE4D100007906E5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3FF089CC2FE4C08D007906E5 /* Debug */ = {
@@ -310,6 +424,76 @@
 			};
 			name = Release;
 		};
+		3FF08A092FE4D100007906E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BeaconScannerWatch/BeaconScannerWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G2FP9F8Q9Z;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BeaconScannerWatch/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Scans for nearby workout equipment beacons";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Runs a workout session so beacon scanning continues with the wrist down";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Runs a workout session so beacon scanning continues with the wrist down";
+				INFOPLIST_KEY_WKApplication = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.sim.BeaconScanner;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sim.BeaconScanner.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		3FF08A0A2FE4D100007906E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BeaconScannerWatch/BeaconScannerWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G2FP9F8Q9Z;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BeaconScannerWatch/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Scans for nearby workout equipment beacons";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Runs a workout session so beacon scanning continues with the wrist down";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Runs a workout session so beacon scanning continues with the wrist down";
+				INFOPLIST_KEY_WKApplication = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.sim.BeaconScanner;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sim.BeaconScanner.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +511,15 @@
 			buildConfigurations = (
 				3FF089CF2FE4C08D007906E5 /* Debug */,
 				3FF089D02FE4C08D007906E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FF08A082FE4D100007906E5 /* Build configuration list for PBXNativeTarget "BeaconScannerWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FF08A092FE4D100007906E5 /* Debug */,
+				3FF08A0A2FE4D100007906E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
