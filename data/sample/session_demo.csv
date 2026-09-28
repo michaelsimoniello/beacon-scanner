@@ -1,0 +1,7 @@
+timestamp_ms,peripheral_id,name,rssi,session_label
+1783194064892,SYNTH-DEVICE-001,Unknown Device,-100,at_rest_baseline
+1783194064893,SYNTH-DUMBBELL-008,Demo Dumbbell 8lb,-77,at_rest_baseline
+1783194064905,SYNTH-DUMBBELL-012,Demo Dumbbell 12lb,-70,at_rest_baseline
+1783197297136,SYNTH-DEVICE-002,Unknown Device,-99,curls_demo_8lb
+1783197297138,SYNTH-DUMBBELL-008,Demo Dumbbell 8lb,-66,curls_demo_8lb
+1783197297168,SYNTH-DUMBBELL-012,Demo Dumbbell 12lb,-69,curls_demo_8lb
