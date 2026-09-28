@@ -3,3 +3,7 @@ __pycache__/
 .DS_Store
 build/
 *.numbers
+
+# Local experiment data and Xcode user state
+data/
+**/xcuserdata/
