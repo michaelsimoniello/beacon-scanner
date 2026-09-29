@@ -4,7 +4,7 @@ BeaconScanner is an iPhone and Apple Watch proof of concept for detecting which 
 
 The original product idea was dumbbell weight tracking. Each dumbbell could carry a small BLE beacon, and a device worn on the wrist could infer which dumbbell was in the user's hand. That would create the foundation for automatically identifying the active weight during a workout without requiring the user to manually log every set.
 
-This repository contains the prototype app, the Apple Watch companion app, the raw experiment data, and the first-pass analysis.
+This repository contains the prototype app, the Apple Watch companion app, the first-pass analysis script, and a sanitized synthetic sample. The original development captures are intentionally kept out of the public repository.
 
 ## The hypothesis
 
@@ -214,8 +214,8 @@ BeaconScanner/
 ├── BeaconScanner/              # iPhone SwiftUI app
 ├── BeaconScannerWatch/         # Apple Watch companion app
 ├── Shared/                     # CSV logging and thread-safe device storage
-├── data/stage1/                # Raw staged experiment CSVs
-│   └── analysis/               # Generated plots from the analysis script
+├── data/                       # Sanitized synthetic sample data
+│   └── sample/                 # Fabricated session for demonstrating the workflow
 ├── scripts/analyze_stage1.py   # RSSI statistics and visualization
 └── BeaconScanner.xcodeproj/    # Xcode project
 ```
@@ -228,7 +228,9 @@ From the repository root:
 python3 scripts/analyze_stage1.py
 ```
 
-The script filters the raw CSVs to `BCPro_` devices, writes per-session RSSI plots to `data/stage1/analysis/`, and prints:
+The script is designed for the original Stage 1 capture layout (`data/stage1/`). The public repository includes a synthetic sample rather than the original development captures, so the script is primarily included to show how the analysis was performed. The original captures are intentionally excluded from the public repository.
+
+When run with the original Stage 1 capture layout, the script filters the CSVs to `BCPro_` devices, writes per-session RSSI plots to `data/stage1/analysis/`, and prints:
 
 - Per-beacon sample counts and RSSI statistics.
 - Held-versus-resting mean gaps.
